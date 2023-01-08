@@ -1,0 +1,26 @@
+{% extends 'shared/base.html' %}
+{% load placeholders %}
+{% block content %}
+    <div class="container">
+        <table>
+            <form class="w-50 m-auto" method="post" style="border: 1px solid grey; margin: 10% 0%; padding: 5% 5%"
+                  action="{% url 'login user' %}">
+                <h2>Login</h2>
+                {% csrf_token %}
+                {{ form.username|placeholder:'Username ' }}
+                <br>
+                {{ form.password|placeholder:'Password ' }}
+                {% if form.errors %}
+                    <div class="alert alert-danger" style="margin-top: 1%">
+                        {% for key, value in form.errors.items %}
+                            <div>{{ value }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+        </table>
+        <button type="submit" style="margin-top: 0.7%" class="btn btn-primary">Login</button>
+        </form>
+
+
+    </div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'shared/base.html' %}
+{% block content %}
+    <div class="d-flex">
+        <div class="d-inline p-2 w-50">
+            <img src="{{ product.image.url }}" class="w-50 rounded mx-auto d-block">
+        </div>
+        <div class="d-inline p-2 w-50">
+            <div class="d-flex justify-content-between">
+                <h5><u>Title:</u> {{ product.title }}</h5>
+                <h6><u>Seller:</u> {{ product.user.username }}</h6>
+
+            </div>
+            <p class="mt-2">Description: {{ product.description }}</p>
+            {% if avr_rating_quality %}
+                <div>Average rating quality: {{ avr_rating_quality|floatformat:2 }}</div>
+                <div>Average rating design: {{ avr_rating_design|floatformat:2 }}</div>
+                <div>Average rating price: {{ avr_rating_price|floatformat:2 }}</div>
+            {% else %}
+                <div>This product is not rated yet</div>
+            {% endif %}
+            {% if is_owner %}
+                <div>
+                    <a href="{% url 'edit product' product.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'delete product' product.id %}" class="btn btn-danger">Delete</a>
+                </div>
+            {% else %}
+                <a href="{% url 'buy' product.id %}" class="btn btn-primary">Buy</a>
+                {% if request.user.is_authenticated %}
+                    {% if not is_rated %}
+                        <a class="btn btn-primary" href="{% url 'rate product' pk=product.id %}">Add rating</a>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="d-block" style="background-color: #f1e3e3; padding:2%">
+        {% if comments %}
+            {% for comment in comments %}
+                <div class="box">
+                    <h5><u>{{ comment.user }}</u>: <em>{{ comment.text }}</em></h5>
+                    <hr>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="box">
+                <h3>There are no comments for this product. </h3>
+            </div>
+        {% endif %}
+        {% if not is_owner %}
+            <div class="box">
+                <form method="post" action="{% url 'comment product' product.id %}">
+                    {% csrf_token %}
+                    {{ comment_form }}
+                    <br>
+                    <button class="btn btn-primary mt-2" type="submit">Add comment</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

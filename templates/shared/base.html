@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>BUY FROM US</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="https://logodownload.org/wp-content/uploads/2016/10/olx-logo-0.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/scripts.js' %}"></script>
+</head>
+<body style="background-color: #C0ADFE">
+<div style="background-color: #591B52; text-align: center;">
+    <h1 style="color: #0dcaf0; font-style: italic;">BUY FROM US</h1>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light" style="margin-bottom:2%; background-color: #E9E3FE">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li>
+                <a class="nav-link" href="{% url 'home' %}">All products</a>
+            </li>
+            <li><a class="nav-link" href="{% url 'add product' %}">Add product</a></li>
+        </ul>
+    </div>
+    <ul class="navbar-nav">
+        {% if request.user.is_authenticated %}
+            <li>
+                <a class="nav-link" style="color: navy; float: right;"
+                   href="{% url 'profile details' %}">{{ request.user }}</a>
+            </li>
+            <li>
+                <a class="nav-link" style="color: red; float: right;" href="{% url 'log out user' %}">Log out</a>
+            </li>
+        {% else %}
+            <li class="float-right">
+                <a class="nav-link" href="{% url 'login user' %}">Login</a>
+            </li>
+            <li class="float-right">
+                <a class="nav-link" href="{% url 'register user' %}">Register</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+<div class="container" style="padding-bottom: 100px">
+    {% block content %}
+    {% endblock %}
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script>
+
+</body>
+<footer class="footer" style="background-color: #E9E3FE">
+    <nav class="navbar navbar-expand-lg navbar-light " style="margin-bottom:2%">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#footerNavbarNavDropdown"
+                aria-controls="footerNavbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="footerNavbarNavDropdown">
+            <ul class="navbar-nav">
+                <li>
+                    <a class="nav-link" href="{% url 'FAQ' %}">Frequently Asked Questions</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="{% url 'about us' %}">About Us</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="{% url 'follow us' %}">Follow Us</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="{% url 'sponsors' %}">Sponsors</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="https://www.olxgroup.com/careers" target="_blank">Careers</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="{% url 'contacts' %}">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</footer>
+</html>

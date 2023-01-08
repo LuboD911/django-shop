@@ -1,0 +1,46 @@
+{% extends 'shared/base.html' %}
+{% load placeholders %}
+{% block content %}
+    <div class="container-fluid" style="background-image: none">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <form style="border: 1px solid grey; margin: 10% 0%; padding: 10% 5%; text-align: center;"
+                      method="post">
+
+                    <h2>Sign up</h2>
+                    {% csrf_token %}
+                    <table>
+                        <tbody>
+
+                        <tr>
+                            <td style="text-align: right;">Username:</td>
+                            <td style="margin-left: 9%;">{{ form.username|placeholder:'Username ' }}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">Password:</td>
+                            <td style="margin-left: 9%;"> {{ form.password1|placeholder:'Password ' }}</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">Password confirmation:</td>
+                            <td style="margin-left: 9%;">{{ form.password2|placeholder:'Repeat password ' }}</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                    <button class="btn btn-primary" style="margin-top: 1% " type="submit">Sign up</button>
+                    <div>Have an account?<a href="{% url 'login user' %}" style="color:orange">Sign in here</a></div>
+                    {% if form.errors %}
+                        <div class="alert alert-danger" style="margin-top: 1%">
+                        {% for key, value in form.errors.items %}
+                            <div>{{ value }}</div>
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
